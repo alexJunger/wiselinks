@@ -16,8 +16,18 @@ class RequestManager
     #
     self._loading($target, state)
 
-    # Perform XHtmlHttpRequest
-    #
+    fallbackTimeout = setTimeout =>
+      self._performRequest($target, state)
+    , 1000
+
+    $(document).on 'page:performrequest', =>
+      clearInterval fallbackTimeout
+      self._performRequest($target, state)
+
+
+  # Perform XHtmlHttpRequest
+  #
+  _performRequest: ($target, state) ->
     $.ajax(
       url: state.url
       headers:
