@@ -4,7 +4,6 @@ class RequestManager
   constructor: (@options = {}) ->
 
   call: ($target, state) ->
-    self = this
 
     # If been redirected, just trigger event and exit
     #
@@ -14,15 +13,15 @@ class RequestManager
 
     # Trigger loading event
     #
-    self._loading($target, state)
+    @_loading($target, state)
 
-    fallbackTimeout = setTimeout ->
-      self._performRequest($target, state).bind(self)
+    fallbackTimeout = setTimeout =>
+      @_performRequest($target, state)
     , 1000
 
-    $(document).on 'page:performrequest', ->
+    $(document).on 'page:performrequest', =>
       clearInterval fallbackTimeout
-      self._performRequest($target, state).bind(self)
+      @_performRequest($target, state)
 
 
   # Perform XHtmlHttpRequest
@@ -37,13 +36,13 @@ class RequestManager
       dataType: "html"
     ).done(
       (data, status, xhr) ->
-        self._html_loaded($target, data, status, xhr)
+        @_html_loaded($target, data, status, xhr)
     ).fail(
       (xhr, status, error) ->
-        self._fail($target, status, state, error, xhr.status, xhr.responseText)
+        @_fail($target, status, state, error, xhr.status, xhr.responseText)
     ).always(
       (data_or_xhr, status, xhr_or_error)->
-        self._always($target, status, state)
+        @_always($target, status, state)
     )
 
   _normalize: (url) ->
