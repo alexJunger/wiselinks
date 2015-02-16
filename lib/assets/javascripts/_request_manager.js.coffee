@@ -26,7 +26,7 @@ class RequestManager
 
   # Perform XHtmlHttpRequest
   #
-  _performRequest: ($target, state) ->
+  _performRequest: ($target, state) =>
     $.ajax(
       url: state.url
       headers:
