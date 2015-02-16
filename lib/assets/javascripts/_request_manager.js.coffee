@@ -16,13 +16,13 @@ class RequestManager
     #
     self._loading($target, state)
 
-    fallbackTimeout = setTimeout =>
-      self._performRequest($target, state)
+    fallbackTimeout = setTimeout ->
+      self._performRequest($target, state).bind(self)
     , 1000
 
-    $(document).on 'page:performrequest', =>
+    $(document).on 'page:performrequest', ->
       clearInterval fallbackTimeout
-      self._performRequest($target, state)
+      self._performRequest($target, state).bind(self)
 
 
   # Perform XHtmlHttpRequest
