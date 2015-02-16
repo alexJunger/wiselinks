@@ -35,13 +35,13 @@ class RequestManager
 
       dataType: "html"
     ).done(
-      (data, status, xhr) ->
+      (data, status, xhr) =>
         @_html_loaded($target, data, status, xhr)
     ).fail(
-      (xhr, status, error) ->
+      (xhr, status, error) =>
         @_fail($target, status, state, error, xhr.status, xhr.responseText)
     ).always(
-      (data_or_xhr, status, xhr_or_error)->
+      (data_or_xhr, status, xhr_or_error) =>
         @_always($target, status, state)
     )
 
