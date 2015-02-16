@@ -19,7 +19,7 @@ class RequestManager
       @_performRequest($target, state)
     , 1000
 
-    $(document).on 'page:performrequest', =>
+    $(document).off('page:performrequest').on 'page:performrequest', =>
       clearInterval fallbackTimeout
       @_performRequest($target, state)
 
